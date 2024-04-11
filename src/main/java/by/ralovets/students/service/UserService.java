@@ -1,5 +1,6 @@
 package by.ralovets.students.service;
 
+import by.ralovets.students.Role;
 import by.ralovets.students.entity.User;
 import by.ralovets.students.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,8 @@ public class UserService {
 
         final String passwordHash = passwordEncoder.encode(password);
         user.setPassword(passwordHash);
+
+        user.setRole(Role.ROLE_USER);
 
         userRepository.save(user);
     }
