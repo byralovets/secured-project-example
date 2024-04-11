@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: secured-students-application
+  datasource:
+    url: jdbc:postgresql://${STUDENTS_DB_HOST}/${STUDENTS_DB_NAME}
+    username: ${STUDENTS_DB_USER}
+    password: ${STUDENTS_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: liquibase/changelog-master.xml
+
+app:
+  jwt:
+    expirationMs: 604800000
+    secret: defaultdefaultdefaultdefaultdefaultdefault
