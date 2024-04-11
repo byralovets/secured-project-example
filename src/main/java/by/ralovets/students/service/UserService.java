@@ -20,12 +20,12 @@ public class UserService {
 
     @Transactional
     public void createUser(String username, String password) {
-        final User user = new User();
-        user.setUsername(username);
-
         final String passwordHash = passwordEncoder.encode(password);
-        user.setPassword(passwordHash);
 
+        final User user = new User();
+
+        user.setUsername(username);
+        user.setPassword(passwordHash);
         user.setRole(Role.ROLE_USER);
 
         userRepository.save(user);
