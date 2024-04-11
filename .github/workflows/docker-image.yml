@@ -1,14 +1,40 @@
-name: Docker Image CI example
+name: Публикация Docker образа в Docker Hub
 
 on:
   push:
     branches: [ "master" ]
 
 jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Приветствие
+        run: echo Привет, мир!
+
   build:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: Демка
-      run: echo Workflow прошёл успешно, ура!
+
+    - name: Проверка на живность
+      run: echo Я всё ещё жив, ура!
+
+    - name: Установка Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - name: Проверка того, что мы имеем
+      run: ls
+
+    - name: Очистка и сборка проекта
+      run: mvn clean package
+
+    - name: Сборка Docker образа
+      run: docker build -t byralovets/secured-students-backend .
+
+    - name: Отправка Docker образа в Docker Hub
+      run: docker push byralovets/secured-students-backend
